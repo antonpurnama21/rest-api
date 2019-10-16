@@ -1,0 +1,32 @@
+[
+
+	{ 
+		"nama" : "Anton",
+		"umur" : 24,
+		"nim" : "312015051",
+		"hobby" : [
+			"coding",
+			"gaming"
+		],
+		"pembimbing" : {
+			"pembimbing1" : "Samirah Rahayu",
+			"pembimbing2" : "Erich Andhika"
+		}
+	},
+
+	{ 
+		"nama" : "Sadam",
+		"umur" : 23,
+		"nim" : "312015069",
+		"hobby" : [
+			"coding",
+			"gaming",
+			"sepakbola"
+		],
+		"pembimbing" : {
+			"pembimbing1" : "Samirah Rahayu",
+			"pembimbing2" : "Trisiani Dewi"
+		}
+	}
+
+]
