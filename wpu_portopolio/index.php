@@ -3,15 +3,19 @@ function get_CURL($url)
 {
   // $curl = curl_init();
   // curl_setopt($curl, CURLOPT_URL, $url);
-  // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  // curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
   // $result = curl_exec($curl);
-  // curl_close($curl); te jalan anjayyyy :(
+  // curl_close($curl); 
+
+  //te jalan anjayyyy :(
 
   $result = file_get_contents($url);
 
   return json_decode($result, true);
-  
+
 }
+
+//youtube
 
 $result = get_CURL('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=UCkXmLjEr95LVtGuIm3l2dPg&key=AIzaSyCTTsXAKTi3cA3rhSxMLrDoT1uwlPo5qKk');
 
@@ -25,6 +29,26 @@ $urlatestvideo = 'https://www.googleapis.com/youtube/v3/search?key=AIzaSyCTTsXAK
 $result = get_CURL($urlatestvideo);
 
 $latestvideo = $result['items'][0]['id']['videoId'];
+
+//instagram
+$access_token = '2015296805.1677ed0.6136d54f21534ea689e537687607f21e';
+$url_user = 'https://api.instagram.com/v1/users/self?access_token='.$access_token;
+$url_media_recent = 'https://api.instagram.com/v1/users/self/media/recent/?count=8&access_token='.$access_token;
+
+$result = get_CURL($url_user);
+
+$usernameIG = $result['data']['username'];
+$profilepicIG = $result['data']['profile_picture'];
+$followerIG = $result['data']['counts']['followed_by'];
+
+//latest post
+$result = get_CURL($url_media_recent);
+
+$photos = [];
+
+foreach ($result['data'] as $key) {
+  $photos[] = $key['images']['thumbnail']['url'];
+}
 
 ?>
 
@@ -132,25 +156,20 @@ $latestvideo = $result['items'][0]['id']['videoId'];
             <div class="col-md-5">
               <div class="row">
                 <div class="col-md-4">
-                  <img src="img/profile2.png" class="rounded-circle img-thumbnail">
+                  <img src="<?= $profilepicIG ?>" width="100" class="rounded-circle img-thumbnail">
                 </div>
                 <div class="col-md-8">
-                  <h5>Anton Purnama</h5>
-                  <p>100000 Followers.</p>
+                  <h5><?= $usernameIG ?></h5>
+                  <p><?= $followerIG ?> Followers.</p>
                 </div>
               </div>
               <div class="row mt-3 pb-3">
                 <div class="col">
+                  <?php foreach ($photos as $key): ?>
                   <div class="ig-thumbnail">
-                    <img src="img/thumbs/1.png">
+                    <img src="<?= $key ?>">
                   </div>
-                  <div class="ig-thumbnail">
-                    <img src="img/thumbs/2.png">
-                  </div>
-                  <div class="ig-thumbnail">
-                    <img src="img/thumbs/3.png">
-                  </div>
-
+                  <?php endforeach ?>
                 </div>
               </div>
             </div>
