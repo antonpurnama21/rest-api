@@ -16,6 +16,7 @@ class Mahasiswa extends CI_Controller
         if( $this->input->post('keyword') ) {
             $data['mahasiswa'] = $this->Mahasiswa_model->cariDataMahasiswa();
         }
+        //echo json_encode($data);
         $this->load->view('templates/header', $data);
         $this->load->view('mahasiswa/index', $data);
         $this->load->view('templates/footer');

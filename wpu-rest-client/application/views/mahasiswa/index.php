@@ -42,7 +42,10 @@
                 </div>
             <?php endif; ?>
             <ul class="list-group">
-                <?php foreach ($mahasiswa as $mhs) : ?>
+                <?php
+                if (!empty($mahasiswa)) {
+                    foreach ($mahasiswa as $mhs) : ?>
+                 
                 <li class="list-group-item">
                     <?= $mhs['nama']; ?>
                     <a href="<?= base_url(); ?>mahasiswa/hapus/<?= $mhs['id']; ?>"
@@ -52,7 +55,7 @@
                     <a href="<?= base_url(); ?>mahasiswa/detail/<?= $mhs['id']; ?>"
                         class="badge badge-primary float-right">detail</a>
                 </li>
-                <?php endforeach; ?>
+                <?php endforeach; } ?>
             </ul>
         </div>
     </div>

@@ -1,6 +1,9 @@
 <?php 
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
 
 class Mahasiswa_model extends CI_model {
 
@@ -102,15 +105,45 @@ class Mahasiswa_model extends CI_model {
 
     public function cariDataMahasiswa()
     {
-        $response = $this->_client->request('GET', 'mahasiswa/search', [
-            'query' => [
-                'api-key' => 'APIKEY21',
-                's' => $this->input->post('keyword', true)
-            ]
-        ]);
+        try {
 
-        $result = json_decode($response->getBody()->getContents(), true);
-        return $result['data'];
+            $response = $this->_client->request('GET', 'mahasiswa/search', [
+                'query' => [
+                    'api-key' => 'APIKEY21',
+                    's' => $this->input->post('keyword', true)
+                ]
+            ]);
+
+            $result = json_decode($response->getBody()->getContents(), true);
+            return $result['data'];
+            
+        } catch (ClientException $e) {
+            return false;
+        }
         
     }
+    
 }
+    
+
+    // try {
+    //         $promise = $client->requestAsync('GET', 'post/' . $value, [
+    //             'proxy' => [
+    //                 'http'  => 'tcp://216.190.97.3:3128'
+    //             ]
+    //         ]);
+
+    //         $promise->then(
+    //             function (ResponseInterface $res) {
+    //                 echo $res->getStatusCode() . "\n";
+    //             },
+    //             function (RequestException $e) {
+    //                 echo $e->getMessage() . "\n";
+    //                 echo $e->getRequest()->getMethod();
+    //             }
+    //         );
+    //     } catch ( $e) {
+            // echo $e->getMessage() . "\n";
+            // echo $e->getRequest()->getMethod();        
+    //     }
+    //$response->wait();
